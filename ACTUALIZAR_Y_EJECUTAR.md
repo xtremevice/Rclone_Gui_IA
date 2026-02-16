@@ -250,7 +250,24 @@ Si después de actualizar ves este error:
 RcloneGui.slnx(1,1): error MSB4068: The element
 ```
 
-**Solución rápida:**
+**Solución automática (Recomendado):**
+
+Ejecuta el script de reparación incluido:
+```bash
+# Linux / macOS
+bash fix-msb4068.sh
+
+# Windows
+fix-msb4068.bat
+```
+
+El script:
+- ✅ Detecta automáticamente si falta la declaración XML
+- ✅ Crea un backup antes de hacer cambios
+- ✅ Agrega la declaración XML si es necesaria
+- ✅ Verifica que el fix funcionó
+
+**Solución manual:**
 
 1. Verifica que tienes la última versión con el fix:
 ```bash
@@ -266,10 +283,10 @@ Debe mostrar: `<?xml version="1.0" encoding="utf-8"?>`
 
 3. Si NO tiene la declaración XML, actualiza manualmente:
 ```bash
-# Descargar la versión corregida
+# Opción A: Descargar la versión corregida
 curl -o RcloneGui.slnx https://raw.githubusercontent.com/xtremevice/Rclone_Gui_IA/main/RcloneGui.slnx
 
-# O agregar manualmente la declaración XML
+# Opción B: Agregar manualmente la declaración XML
 sed -i '1s/^/<?xml version="1.0" encoding="utf-8"?>\n/' RcloneGui.slnx
 ```
 
