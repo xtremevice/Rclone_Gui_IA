@@ -2,12 +2,22 @@
 
 A cross-platform graphical user interface for managing Rclone cloud storage accounts, configurations, and bidirectional sync operations.
 
+> ## 🚀 COMANDO RÁPIDO / QUICK COMMAND
+> 
+> **¿Quieres descargar la última versión y ejecutarla? / Want to download latest and run?**
+> 
+> ```bash
+> git pull origin main && dotnet build RcloneGui.slnx --configuration Release && ./run.sh
+> ```
+> 
+> Para Windows / For Windows: `git pull origin main && dotnet build RcloneGui.slnx --configuration Release && run.bat`
+> 
+> 📄 Más detalles / More details: [COMANDO_RAPIDO.md](COMANDO_RAPIDO.md)
+
 > 🔄 **Update and Run** / **Actualizar y Ejecutar**
 > 
 > - 🇪🇸 Spanish: [ACTUALIZAR_Y_EJECUTAR.md](ACTUALIZAR_Y_EJECUTAR.md) - Comandos para actualizar a la última versión
 > - 🇬🇧 English: [UPDATE_AND_RUN.md](UPDATE_AND_RUN.md) - Commands to update to the latest version
->
-> **Quick command:** `git pull origin main && dotnet build RcloneGui.slnx --configuration Release && ./run.sh`
 
 > 📖 **How to Run?** / **¿Cómo Ejecutar?**
 > 
