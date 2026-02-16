@@ -1,0 +1,163 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:RcloneGui.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             x:Class="RcloneGui.Views.RemotesView"
+             x:DataType="vm:RemotesViewModel">
+  
+  <Grid RowDefinitions="Auto,*,Auto" Margin="20" RowSpacing="15">
+    <!-- Header -->
+    <StackPanel Grid.Row="0" Spacing="10">
+      <TextBlock Text="Configured Remotes" FontSize="24" FontWeight="Bold" />
+      <TextBlock Text="Manage your cloud storage accounts and remotes" 
+                 Foreground="Gray" />
+      <Separator />
+    </StackPanel>
+
+    <!-- Remotes List -->
+    <Grid Grid.Row="1" ColumnDefinitions="*,Auto" ColumnSpacing="20">
+      <Border Grid.Column="0" 
+              BorderBrush="LightGray" 
+              BorderThickness="1" 
+              CornerRadius="5"
+              Padding="10">
+        <ScrollViewer>
+          <ItemsControl ItemsSource="{Binding Remotes}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Border Padding="10" 
+                        Margin="5"
+                        Background="#F5F5F5"
+                        CornerRadius="5"
+                        BorderBrush="LightGray"
+                        BorderThickness="1">
+                  <Grid ColumnDefinitions="Auto,*,Auto">
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="0,0,15,0">
+                      <TextBlock Text="📁" FontSize="32" />
+                    </StackPanel>
+                    
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="5">
+                      <TextBlock Text="{Binding Name}" 
+                                 FontSize="16" 
+                                 FontWeight="SemiBold" />
+                      <TextBlock Text="{Binding Type, StringFormat='Type: {0}'}" 
+                                 Foreground="Gray"
+                                 FontSize="12" />
+                      <TextBlock Text="{Binding CreatedAt, StringFormat='Created: {0:g}'}" 
+                                 Foreground="Gray"
+                                 FontSize="11" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2" 
+                                VerticalAlignment="Center"
+                                Spacing="5">
+                      <Border Background="#4CAF50" 
+                              CornerRadius="10" 
+                              Padding="8,4"
+                              IsVisible="{Binding IsActive}">
+                        <TextBlock Text="Active" 
+                                   Foreground="White" 
+                                   FontSize="11"
+                                   HorizontalAlignment="Center" />
+                      </Border>
+                    </StackPanel>
+                  </Grid>
+                </Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </ScrollViewer>
+      </Border>
+
+      <!-- Actions Panel -->
+      <StackPanel Grid.Column="1" 
+                  Spacing="10" 
+                  Width="200"
+                  VerticalAlignment="Top">
+        <TextBlock Text="Actions" FontWeight="SemiBold" FontSize="14" />
+        
+        <Button Command="{Binding LoadRemotesCommand}"
+                IsEnabled="{Binding !IsLoading}"
+                HorizontalAlignment="Stretch"
+                Padding="10">
+          <StackPanel Orientation="Horizontal" Spacing="5">
+            <TextBlock Text="🔄" />
+            <TextBlock Text="Refresh" />
+          </StackPanel>
+        </Button>
+
+        <Button Command="{Binding TestRemoteCommand}"
+                IsEnabled="{Binding !IsLoading}"
+                Background="#2196F3"
+                Foreground="White"
+                HorizontalAlignment="Stretch"
+                Padding="10">
+          <StackPanel Orientation="Horizontal" Spacing="5">
+            <TextBlock Text="✓" />
+            <TextBlock Text="Test Selected" />
+          </StackPanel>
+        </Button>
+
+        <Button Command="{Binding DeleteRemoteCommand}"
+                IsEnabled="{Binding !IsLoading}"
+                Background="#F44336"
+                Foreground="White"
+                HorizontalAlignment="Stretch"
+                Padding="10">
+          <StackPanel Orientation="Horizontal" Spacing="5">
+            <TextBlock Text="🗑️" />
+            <TextBlock Text="Delete Selected" />
+          </StackPanel>
+        </Button>
+
+        <Separator Margin="0,10" />
+
+        <TextBlock Text="Selected Remote" 
+                   FontWeight="SemiBold" 
+                   FontSize="12"
+                   Foreground="Gray" />
+        
+        <Border BorderBrush="LightGray"
+                BorderThickness="1"
+                CornerRadius="5"
+                Padding="10"
+                Background="White">
+          <Grid>
+            <StackPanel Spacing="5" IsVisible="{Binding SelectedRemote, Converter={x:Static ObjectConverters.IsNotNull}}">
+              <TextBlock Text="{Binding SelectedRemote.Name}" 
+                         FontWeight="SemiBold" />
+              <TextBlock Text="{Binding SelectedRemote.Type, StringFormat='Type: {0}'}" 
+                         FontSize="11"
+                         Foreground="Gray" />
+            </StackPanel>
+            <TextBlock Text="No selection" 
+                       Foreground="Gray"
+                       FontSize="11"
+                       IsVisible="{Binding SelectedRemote, Converter={x:Static ObjectConverters.IsNull}}" />
+          </Grid>
+        </Border>
+      </StackPanel>
+    </Grid>
+
+    <!-- Status Bar -->
+    <Border Grid.Row="2"
+            Background="#E3F2FD"
+            BorderBrush="#2196F3"
+            BorderThickness="1"
+            Padding="10"
+            CornerRadius="5"
+            IsVisible="{Binding StatusMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+      <TextBlock Text="{Binding StatusMessage}" 
+                 TextWrapping="Wrap"
+                 Foreground="#1976D2" />
+    </Border>
+
+    <!-- Loading Indicator -->
+    <ProgressBar Grid.Row="2"
+                 IsIndeterminate="{Binding IsLoading}" 
+                 IsVisible="{Binding IsLoading}"
+                 Height="4" />
+  </Grid>
+</UserControl>

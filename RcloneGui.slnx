@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/RcloneGui.Core/RcloneGui.Core.csproj" />
+    <Project Path="src/RcloneGui/RcloneGui.csproj" />
+  </Folder>
+</Solution>

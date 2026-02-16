@@ -1,0 +1,162 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:RcloneGui.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             x:Class="RcloneGui.Views.AddAccountView"
+             x:DataType="vm:AddAccountViewModel">
+  
+  <ScrollViewer>
+    <StackPanel Margin="20" Spacing="15">
+      <TextBlock Text="Add New Account" FontSize="24" FontWeight="Bold" />
+      
+      <TextBlock Text="Select a cloud storage provider and configure your account" 
+                 Foreground="Gray" />
+
+      <Separator />
+
+      <!-- Provider Selection -->
+      <StackPanel Spacing="5">
+        <TextBlock Text="Provider *" FontWeight="SemiBold" />
+        <ComboBox ItemsSource="{Binding Providers}"
+                  SelectedItem="{Binding SelectedProvider}"
+                  Width="300"
+                  HorizontalAlignment="Left">
+          <ComboBox.ItemTemplate>
+            <DataTemplate>
+              <StackPanel Orientation="Horizontal" Spacing="10">
+                <TextBlock Text="{Binding Name}" FontWeight="SemiBold" />
+                <TextBlock Text="{Binding Description}" Foreground="Gray" FontSize="11" />
+              </StackPanel>
+            </DataTemplate>
+          </ComboBox.ItemTemplate>
+        </ComboBox>
+      </StackPanel>
+
+      <!-- Remote Name -->
+      <StackPanel Spacing="5">
+        <TextBlock Text="Remote Name *" FontWeight="SemiBold" />
+        <TextBox Text="{Binding RemoteName}" 
+                 Width="300" 
+                 HorizontalAlignment="Left"
+                 Watermark="e.g., MyDrive" />
+      </StackPanel>
+
+      <!-- OAuth2 Browser Notice -->
+      <Border IsVisible="{Binding RequiresBrowser}"
+              Background="#FFF3E0"
+              BorderBrush="#FF9800"
+              BorderThickness="1"
+              Padding="10"
+              CornerRadius="5">
+        <StackPanel Spacing="5">
+          <TextBlock Text="⚠️ Browser Authentication Required" 
+                     FontWeight="SemiBold" 
+                     Foreground="#E65100" />
+          <TextBlock Text="This provider requires browser-based OAuth2 authentication. A browser window will open to complete the authentication process." 
+                     TextWrapping="Wrap"
+                     Foreground="#E65100" />
+        </StackPanel>
+      </Border>
+
+      <!-- Username/Password Fields -->
+      <StackPanel Spacing="10" IsVisible="{Binding ShowUsernamePassword}">
+        <StackPanel Spacing="5">
+          <TextBlock Text="Username *" FontWeight="SemiBold" />
+          <TextBox Text="{Binding Username}" 
+                   Width="300" 
+                   HorizontalAlignment="Left"
+                   Watermark="Enter username" />
+        </StackPanel>
+
+        <StackPanel Spacing="5">
+          <TextBlock Text="Password *" FontWeight="SemiBold" />
+          <TextBox Text="{Binding Password}" 
+                   Width="300" 
+                   HorizontalAlignment="Left"
+                   Watermark="Enter password"
+                   PasswordChar="•" />
+        </StackPanel>
+      </StackPanel>
+
+      <!-- Host Field (FTP/SFTP) -->
+      <StackPanel Spacing="5" IsVisible="{Binding ShowHost}">
+        <TextBlock Text="Host *" FontWeight="SemiBold" />
+        <TextBox Text="{Binding Host}" 
+                 Width="300" 
+                 HorizontalAlignment="Left"
+                 Watermark="e.g., ftp.example.com" />
+      </StackPanel>
+
+      <!-- URL Field (WebDAV) -->
+      <StackPanel Spacing="5" IsVisible="{Binding ShowUrl}">
+        <TextBlock Text="URL *" FontWeight="SemiBold" />
+        <TextBox Text="{Binding Url}" 
+                 Width="400" 
+                 HorizontalAlignment="Left"
+                 Watermark="e.g., https://webdav.example.com" />
+      </StackPanel>
+
+      <!-- API Keys (S3) -->
+      <StackPanel Spacing="10" IsVisible="{Binding ShowApiKeys}">
+        <StackPanel Spacing="5">
+          <TextBlock Text="Access Key ID *" FontWeight="SemiBold" />
+          <TextBox Text="{Binding AccessKeyId}" 
+                   Width="400" 
+                   HorizontalAlignment="Left"
+                   Watermark="Enter access key ID" />
+        </StackPanel>
+
+        <StackPanel Spacing="5">
+          <TextBlock Text="Secret Access Key *" FontWeight="SemiBold" />
+          <TextBox Text="{Binding SecretAccessKey}" 
+                   Width="400" 
+                   HorizontalAlignment="Left"
+                   Watermark="Enter secret access key"
+                   PasswordChar="•" />
+        </StackPanel>
+      </StackPanel>
+
+      <!-- Buttons -->
+      <StackPanel Orientation="Horizontal" Spacing="10" Margin="0,10,0,0">
+        <Button Command="{Binding AddAccountCommand}"
+                IsEnabled="{Binding !IsLoading}"
+                Background="#4CAF50"
+                Foreground="White"
+                Padding="15,8">
+          <StackPanel Orientation="Horizontal" Spacing="5">
+            <TextBlock Text="➕" />
+            <TextBlock Text="Add Account" />
+          </StackPanel>
+        </Button>
+        
+        <Button Command="{Binding ClearFieldsCommand}"
+                IsEnabled="{Binding !IsLoading}"
+                Padding="15,8">
+          <StackPanel Orientation="Horizontal" Spacing="5">
+            <TextBlock Text="🗑️" />
+            <TextBlock Text="Clear" />
+          </StackPanel>
+        </Button>
+      </StackPanel>
+
+      <!-- Status Message -->
+      <Border IsVisible="{Binding StatusMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+              Background="#E3F2FD"
+              BorderBrush="#2196F3"
+              BorderThickness="1"
+              Padding="10"
+              CornerRadius="5">
+        <TextBlock Text="{Binding StatusMessage}" 
+                   TextWrapping="Wrap"
+                   Foreground="#1976D2" />
+      </Border>
+
+      <!-- Loading Indicator -->
+      <ProgressBar IsIndeterminate="{Binding IsLoading}" 
+                   IsVisible="{Binding IsLoading}"
+                   Height="4" />
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

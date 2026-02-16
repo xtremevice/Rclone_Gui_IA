@@ -1,0 +1,117 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:RcloneGui.ViewModels"
+        xmlns:views="using:RcloneGui.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="700"
+        x:Class="RcloneGui.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Rclone GUI - Cloud Storage Manager"
+        Width="1000"
+        Height="700"
+        MinWidth="800"
+        MinHeight="600">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Grid RowDefinitions="Auto,*,Auto">
+        <!-- Header -->
+        <Border Grid.Row="0" 
+                Background="#2196F3" 
+                Padding="20">
+            <Grid ColumnDefinitions="*,Auto">
+                <StackPanel Grid.Column="0" Spacing="5">
+                    <TextBlock Text="Rclone GUI" 
+                               FontSize="24" 
+                               FontWeight="Bold" 
+                               Foreground="White" />
+                    <TextBlock Text="Manage your cloud storage accounts" 
+                               FontSize="14" 
+                               Foreground="White" 
+                               Opacity="0.9" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding RcloneVersion}" 
+                               Foreground="White" 
+                               FontSize="11"
+                               Opacity="0.8" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1" ColumnDefinitions="200,*">
+            <!-- Navigation Panel -->
+            <Border Grid.Column="0" 
+                    Background="#F5F5F5" 
+                    BorderBrush="LightGray" 
+                    BorderThickness="0,0,1,0"
+                    Padding="10">
+                <StackPanel Spacing="5">
+                    <TextBlock Text="Navigation" 
+                               FontWeight="SemiBold" 
+                               Margin="10,10,0,10" />
+                    
+                    <Button Command="{Binding ShowRemotesCommand}"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Padding="10">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="📁" FontSize="16" />
+                            <TextBlock Text="My Remotes" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+
+                    <Button Command="{Binding ShowAddAccountCommand}"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Padding="10">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="➕" FontSize="16" />
+                            <TextBlock Text="Add Account" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Border>
+
+            <!-- Content Area -->
+            <Border Grid.Column="1" Padding="0">
+                <ContentControl Content="{Binding CurrentPage}">
+                    <ContentControl.DataTemplates>
+                        <DataTemplate DataType="vm:RemotesViewModel">
+                            <views:RemotesView />
+                        </DataTemplate>
+                        <DataTemplate DataType="vm:AddAccountViewModel">
+                            <views:AddAccountView />
+                        </DataTemplate>
+                    </ContentControl.DataTemplates>
+                </ContentControl>
+            </Border>
+        </Grid>
+
+        <!-- Footer -->
+        <Border Grid.Row="2" 
+                Background="#EEEEEE" 
+                BorderBrush="LightGray"
+                BorderThickness="0,1,0,0"
+                Padding="15,8">
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBlock Grid.Column="0" 
+                           Text="Rclone GUI - Multi-platform cloud storage manager" 
+                           FontSize="11" 
+                           Foreground="Gray"
+                           VerticalAlignment="Center" />
+                <TextBlock Grid.Column="1" 
+                           Text="© 2024" 
+                           FontSize="11" 
+                           Foreground="Gray"
+                           VerticalAlignment="Center" />
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
+
