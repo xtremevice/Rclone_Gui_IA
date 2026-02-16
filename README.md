@@ -2,6 +2,13 @@
 
 A cross-platform graphical user interface for managing Rclone cloud storage accounts, configurations, and bidirectional sync operations.
 
+> 🔄 **Update and Run** / **Actualizar y Ejecutar**
+> 
+> - 🇪🇸 Spanish: [ACTUALIZAR_Y_EJECUTAR.md](ACTUALIZAR_Y_EJECUTAR.md) - Comandos para actualizar a la última versión
+> - 🇬🇧 English: [UPDATE_AND_RUN.md](UPDATE_AND_RUN.md) - Commands to update to the latest version
+>
+> **Quick command:** `git pull origin main && dotnet build RcloneGui.slnx --configuration Release && ./run.sh`
+
 > 📖 **How to Run?** / **¿Cómo Ejecutar?**
 > 
 > - 🇪🇸 Spanish: [COMO_EJECUTAR.md](COMO_EJECUTAR.md) - Guía completa de ejecución en todas las plataformas
@@ -220,6 +227,10 @@ chmod +x /path/to/rclone
 ```
 
 ## Platform-Specific Guides
+
+### Update Guides
+- **Spanish**: [ACTUALIZAR_Y_EJECUTAR.md](ACTUALIZAR_Y_EJECUTAR.md) - Comandos para actualizar y ejecutar
+- **English**: [UPDATE_AND_RUN.md](UPDATE_AND_RUN.md) - Update and run commands
 
 ### Execution Guides
 - **Spanish**: [COMO_EJECUTAR.md](COMO_EJECUTAR.md) - Guía completa para ejecutar en Windows, Linux y macOS

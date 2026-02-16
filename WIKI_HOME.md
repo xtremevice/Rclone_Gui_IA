@@ -8,6 +8,23 @@
 
 ## 🚀 Inicio Rápido / Quick Start
 
+### ¿Cómo actualizo a la última versión? / How do I update to the latest version?
+
+**La respuesta completa está aquí / The complete answer is here:**
+
+- 🇪🇸 **Español**: [ACTUALIZAR_Y_EJECUTAR.md](ACTUALIZAR_Y_EJECUTAR.md)
+- 🇬🇧 **English**: [UPDATE_AND_RUN.md](UPDATE_AND_RUN.md)
+
+**Comando Rápido / Quick Command:**
+
+```bash
+# Linux / macOS
+git pull origin main && dotnet build RcloneGui.slnx --configuration Release && ./run.sh
+
+# Windows
+git pull origin main && dotnet build RcloneGui.slnx --configuration Release && run.bat
+```
+
 ### ¿Cómo ejecuto la aplicación? / How do I run the application?
 
 **La respuesta completa está aquí / The complete answer is here:**
@@ -39,6 +56,8 @@ chmod +x setup-mac-silicon.sh
 | Documento | Descripción | Language |
 |-----------|-------------|----------|
 | [README.md](README.md) | Documentación principal del proyecto | 🇬🇧 EN |
+| [ACTUALIZAR_Y_EJECUTAR.md](ACTUALIZAR_Y_EJECUTAR.md) | Comandos para actualizar y ejecutar | 🇪🇸 ES |
+| [UPDATE_AND_RUN.md](UPDATE_AND_RUN.md) | Update and run commands | 🇬🇧 EN |
 | [COMO_EJECUTAR.md](COMO_EJECUTAR.md) | Guía completa de ejecución por plataforma | 🇪🇸 ES |
 | [HOW_TO_RUN.md](HOW_TO_RUN.md) | Complete execution guide per platform | 🇬🇧 EN |
 | [WIKI_COMO_EJECUTAR.md](WIKI_COMO_EJECUTAR.md) | Guía de ejecución formato Wiki | 🇪🇸 ES |
