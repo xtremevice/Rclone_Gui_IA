@@ -2,9 +2,13 @@
 
 A cross-platform graphical user interface for managing Rclone cloud storage accounts, configurations, and bidirectional sync operations.
 
-> 🍎 **Mac Silicon Users**: See [MAC_SILICON_SETUP.md](MAC_SILICON_SETUP.md) for complete installation guide in Spanish
+> 📖 **How to Run?** / **¿Cómo Ejecutar?**
 > 
-> 🍎 **Usuarios de Mac Silicon**: Ver [MAC_SILICON_SETUP.md](MAC_SILICON_SETUP.md) para guía completa de instalación
+> - 🇪🇸 Spanish: [COMO_EJECUTAR.md](COMO_EJECUTAR.md) - Guía completa de ejecución en todas las plataformas
+> - 🇬🇧 English: [HOW_TO_RUN.md](HOW_TO_RUN.md) - Complete execution guide for all platforms
+> - 📚 Wiki: [WIKI_COMO_EJECUTAR.md](WIKI_COMO_EJECUTAR.md) - Wiki-ready format
+> 
+> 🍎 **Mac Silicon Users**: See [MAC_SILICON_SETUP.md](MAC_SILICON_SETUP.md) for complete installation guide in Spanish
 
 ## Features
 
@@ -217,6 +221,12 @@ chmod +x /path/to/rclone
 
 ## Platform-Specific Guides
 
+### Execution Guides
+- **Spanish**: [COMO_EJECUTAR.md](COMO_EJECUTAR.md) - Guía completa para ejecutar en Windows, Linux y macOS
+- **English**: [HOW_TO_RUN.md](HOW_TO_RUN.md) - Complete guide for running on Windows, Linux, and macOS
+- **Wiki Format**: [WIKI_COMO_EJECUTAR.md](WIKI_COMO_EJECUTAR.md) - Ready to copy to GitHub Wiki
+
+### Platform-Specific Documentation
 - **Mac Silicon (M1/M2/M3)**: [MAC_SILICON_SETUP.md](MAC_SILICON_SETUP.md) - Complete setup guide in Spanish
 - **Quick Start**: [QUICKSTART.md](QUICKSTART.md) - General quick start guide
 - **Bisync Guide**: [BISYNC_GUIDE.md](BISYNC_GUIDE.md) - Bidirectional sync documentation
