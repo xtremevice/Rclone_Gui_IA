@@ -2,9 +2,30 @@
 
 A cross-platform graphical user interface for managing Rclone cloud storage accounts, configurations, and bidirectional sync operations.
 
-> 🍎 **Mac Silicon Users**: See [MAC_SILICON_SETUP.md](MAC_SILICON_SETUP.md) for complete installation guide in Spanish
+> ## 🚀 COMANDO RÁPIDO / QUICK COMMAND
 > 
-> 🍎 **Usuarios de Mac Silicon**: Ver [MAC_SILICON_SETUP.md](MAC_SILICON_SETUP.md) para guía completa de instalación
+> **¿Quieres descargar la última versión y ejecutarla? / Want to download latest and run?**
+> 
+> ```bash
+> git pull origin main && dotnet build RcloneGui.slnx --configuration Release && ./run.sh
+> ```
+> 
+> Para Windows / For Windows: `git pull origin main && dotnet build RcloneGui.slnx --configuration Release && run.bat`
+> 
+> 📄 Más detalles / More details: [COMANDO_RAPIDO.md](COMANDO_RAPIDO.md)
+
+> 🔄 **Update and Run** / **Actualizar y Ejecutar**
+> 
+> - 🇪🇸 Spanish: [ACTUALIZAR_Y_EJECUTAR.md](ACTUALIZAR_Y_EJECUTAR.md) - Comandos para actualizar a la última versión
+> - 🇬🇧 English: [UPDATE_AND_RUN.md](UPDATE_AND_RUN.md) - Commands to update to the latest version
+
+> 📖 **How to Run?** / **¿Cómo Ejecutar?**
+> 
+> - 🇪🇸 Spanish: [COMO_EJECUTAR.md](COMO_EJECUTAR.md) - Guía completa de ejecución en todas las plataformas
+> - 🇬🇧 English: [HOW_TO_RUN.md](HOW_TO_RUN.md) - Complete execution guide for all platforms
+> - 📚 Wiki: [WIKI_COMO_EJECUTAR.md](WIKI_COMO_EJECUTAR.md) - Wiki-ready format
+> 
+> 🍎 **Mac Silicon Users** / **Usuarios de Mac Silicon**: See [MAC_SILICON_SETUP.md](MAC_SILICON_SETUP.md) for complete installation guide
 
 ## Features
 
@@ -138,7 +159,7 @@ Rclone_Gui_IA/
 │   └── RcloneGui.Core/         # Core business logic
 │       ├── Models/             # Data models
 │       └── Services/           # Services for Rclone interaction
-├── RcloneGui.sln               # Solution file
+├── RcloneGui.slnx              # Solution file
 └── README.md                   # This file
 ```
 
@@ -217,6 +238,16 @@ chmod +x /path/to/rclone
 
 ## Platform-Specific Guides
 
+### Update Guides
+- **Spanish**: [ACTUALIZAR_Y_EJECUTAR.md](ACTUALIZAR_Y_EJECUTAR.md) - Comandos para actualizar y ejecutar
+- **English**: [UPDATE_AND_RUN.md](UPDATE_AND_RUN.md) - Update and run commands
+
+### Execution Guides
+- **Spanish**: [COMO_EJECUTAR.md](COMO_EJECUTAR.md) - Guía completa para ejecutar en Windows, Linux y macOS
+- **English**: [HOW_TO_RUN.md](HOW_TO_RUN.md) - Complete guide for running on Windows, Linux, and macOS
+- **Wiki Format**: [WIKI_COMO_EJECUTAR.md](WIKI_COMO_EJECUTAR.md) - Ready to copy to GitHub Wiki
+
+### Platform-Specific Documentation
 - **Mac Silicon (M1/M2/M3)**: [MAC_SILICON_SETUP.md](MAC_SILICON_SETUP.md) - Complete setup guide in Spanish
 - **Quick Start**: [QUICKSTART.md](QUICKSTART.md) - General quick start guide
 - **Bisync Guide**: [BISYNC_GUIDE.md](BISYNC_GUIDE.md) - Bidirectional sync documentation
