@@ -68,7 +68,7 @@ public partial class AddAccountViewModel : ViewModelBase
     {
         _providerService = new ProviderService();
         _rcloneService = new RcloneService();
-        LoadProviders();
+        _ = LoadProvidersAsync();
     }
 
     partial void OnSelectedProviderChanged(ProviderInfo? value)
@@ -76,9 +76,9 @@ public partial class AddAccountViewModel : ViewModelBase
         UpdateFieldVisibility();
     }
 
-    private void LoadProviders()
+    private async Task LoadProvidersAsync()
     {
-        var providers = _providerService.GetSupportedProviders();
+        var providers = await _providerService.GetSupportedProvidersAsync();
         Providers = new ObservableCollection<ProviderInfo>(providers.OrderBy(p => p.Name));
     }
 

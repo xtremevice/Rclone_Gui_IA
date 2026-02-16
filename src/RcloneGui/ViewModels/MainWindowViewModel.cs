@@ -18,12 +18,14 @@ public partial class MainWindowViewModel : ViewModelBase
 
     public AddAccountViewModel AddAccountViewModel { get; }
     public RemotesViewModel RemotesViewModel { get; }
+    public BisyncViewModel BisyncViewModel { get; }
 
     public MainWindowViewModel()
     {
         _rcloneService = new RcloneService();
         AddAccountViewModel = new AddAccountViewModel();
         RemotesViewModel = new RemotesViewModel();
+        BisyncViewModel = new BisyncViewModel();
         
         _currentPage = RemotesViewModel;
         
@@ -54,5 +56,11 @@ public partial class MainWindowViewModel : ViewModelBase
     private void ShowAddAccount()
     {
         CurrentPage = AddAccountViewModel;
+    }
+
+    [RelayCommand]
+    private void ShowBisync()
+    {
+        CurrentPage = BisyncViewModel;
     }
 }

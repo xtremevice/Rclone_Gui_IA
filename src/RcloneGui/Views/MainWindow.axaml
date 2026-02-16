@@ -75,6 +75,16 @@
                             <TextBlock Text="Add Account" VerticalAlignment="Center" />
                         </StackPanel>
                     </Button>
+
+                    <Button Command="{Binding ShowBisyncCommand}"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Padding="10">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="⇄" FontSize="16" />
+                            <TextBlock Text="Bisync" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
             </Border>
 
@@ -87,6 +97,9 @@
                         </DataTemplate>
                         <DataTemplate DataType="vm:AddAccountViewModel">
                             <views:AddAccountView />
+                        </DataTemplate>
+                        <DataTemplate DataType="vm:BisyncViewModel">
+                            <views:BisyncView />
                         </DataTemplate>
                     </ContentControl.DataTemplates>
                 </ContentControl>

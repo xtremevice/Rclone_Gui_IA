@@ -16,6 +16,9 @@ public interface IRcloneService
     Task<bool> DeleteRemoteAsync(string remoteName);
     Task<bool> TestRemoteAsync(string remoteName);
     Task<string> GetRcloneVersionAsync();
+    Task<BisyncResult> RunBisyncAsync(BisyncOperation operation);
+    string GenerateBisyncCommand(BisyncOperation operation, bool forMacSilicon = false);
+    Task<List<string>> ListRemotePathsAsync(string remoteName, string path = "");
 }
 
 /// <summary>
@@ -348,5 +351,189 @@ public class RcloneService : IRcloneService
 
         // Return output or error if output is empty
         return string.IsNullOrWhiteSpace(output) ? error : output;
+    }
+
+    public async Task<BisyncResult> RunBisyncAsync(BisyncOperation operation)
+    {
+        var startTime = DateTime.Now;
+        var result = new BisyncResult
+        {
+            ExecutedAt = startTime
+        };
+
+        try
+        {
+            var arguments = BuildBisyncArguments(operation);
+            
+            var process = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = _rclonePath,
+                    Arguments = arguments,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true
+                }
+            };
+
+            process.Start();
+            result.Output = await process.StandardOutput.ReadToEndAsync();
+            result.ErrorOutput = await process.StandardError.ReadToEndAsync();
+            await process.WaitForExitAsync();
+
+            result.Duration = DateTime.Now - startTime;
+            result.Success = process.ExitCode == 0;
+
+            // Parse output for statistics
+            ParseBisyncOutput(result);
+        }
+        catch (Exception ex)
+        {
+            result.Success = false;
+            result.ErrorOutput = ex.Message;
+            result.Duration = DateTime.Now - startTime;
+        }
+
+        return result;
+    }
+
+    public string GenerateBisyncCommand(BisyncOperation operation, bool forMacSilicon = false)
+    {
+        var arguments = BuildBisyncArguments(operation);
+        var rcloneCommand = forMacSilicon ? "/opt/homebrew/bin/rclone" : "rclone";
+        return $"{rcloneCommand} {arguments}";
+    }
+
+    public async Task<List<string>> ListRemotePathsAsync(string remoteName, string path = "")
+    {
+        var paths = new List<string>();
+
+        try
+        {
+            var remotePath = string.IsNullOrEmpty(path) 
+                ? $"{remoteName}:" 
+                : $"{remoteName}:{path}";
+            
+            var output = await ExecuteRcloneCommandAsync($"lsf --dirs-only {remotePath}");
+            
+            if (!string.IsNullOrWhiteSpace(output))
+            {
+                paths = output.Split('\n', StringSplitOptions.RemoveEmptyEntries)
+                              .Select(p => p.TrimEnd('/'))
+                              .ToList();
+            }
+        }
+        catch
+        {
+            // Return empty list on error
+        }
+
+        return paths;
+    }
+
+    private string BuildBisyncArguments(BisyncOperation operation)
+    {
+        var args = new StringBuilder("bisync");
+
+        // Add source and destination
+        var source = string.IsNullOrEmpty(operation.SourcePath)
+            ? $"{operation.SourceRemote}:"
+            : $"{operation.SourceRemote}:{operation.SourcePath}";
+
+        var destination = string.IsNullOrEmpty(operation.DestinationPath)
+            ? $"{operation.DestinationRemote}:"
+            : $"{operation.DestinationRemote}:{operation.DestinationPath}";
+
+        args.Append($" \"{source}\" \"{destination}\"");
+
+        // Add options
+        var options = operation.Options;
+
+        if (options.Resync)
+            args.Append(" --resync");
+
+        if (options.CheckAccess)
+            args.Append(" --check-access");
+
+        if (options.CreateEmptySrcDirs)
+            args.Append(" --create-empty-src-dirs");
+
+        if (options.RemoveEmptyDirs)
+            args.Append(" --remove-empty-dirs");
+
+        if (options.CheckSync > 0)
+            args.Append($" --check-sync={options.CheckSync}");
+
+        if (options.DryRun)
+            args.Append(" --dry-run");
+
+        if (options.Force)
+            args.Append(" --force");
+
+        if (options.MaxDelete > 0)
+            args.Append($" --max-delete {options.MaxDelete}");
+
+        if (!string.IsNullOrEmpty(options.ConflictResolve) && options.ConflictResolve != "none")
+            args.Append($" --conflict-resolve {options.ConflictResolve}");
+
+        if (options.Compare)
+        {
+            if (!string.IsNullOrEmpty(options.CompareFlag))
+                args.Append($" --compare {options.CompareFlag}");
+        }
+
+        if (options.IgnoreListingChecksum)
+            args.Append(" --ignore-listing-checksum");
+
+        if (options.Resilient)
+            args.Append(" --resilient");
+
+        if (options.RecoverMaxTime > 0)
+            args.Append($" --recover --max-time {options.RecoverMaxTime}s");
+
+        // Add filters
+        foreach (var filter in options.Filters)
+        {
+            args.Append($" --filter \"{filter}\"");
+        }
+
+        // Add custom arguments
+        foreach (var kvp in options.CustomArguments)
+        {
+            if (string.IsNullOrEmpty(kvp.Value))
+                args.Append($" --{kvp.Key}");
+            else
+                args.Append($" --{kvp.Key} \"{kvp.Value}\"");
+        }
+
+        // Add verbose flag for better output
+        args.Append(" --verbose");
+
+        return args.ToString();
+    }
+
+    private void ParseBisyncOutput(BisyncResult result)
+    {
+        if (string.IsNullOrWhiteSpace(result.Output))
+            return;
+
+        var lines = result.Output.Split('\n');
+        foreach (var line in lines)
+        {
+            if (line.Contains("Transferred:") && line.Contains("/"))
+            {
+                var parts = line.Split('/');
+                if (parts.Length > 0 && int.TryParse(parts[0].Trim().Split(' ').Last(), out int transferred))
+                {
+                    result.FilesTransferred = transferred;
+                }
+            }
+            else if (line.Contains("Errors:") || line.Contains("ERROR"))
+            {
+                result.ErrorsEncountered++;
+            }
+        }
     }
 }
