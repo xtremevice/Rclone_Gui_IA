@@ -142,7 +142,7 @@ Rclone_Gui_IA/
 │   └── RcloneGui.Core/         # Core business logic
 │       ├── Models/             # Data models
 │       └── Services/           # Services for Rclone interaction
-├── RcloneGui.sln               # Solution file
+├── RcloneGui.slnx              # Solution file
 └── README.md                   # This file
 ```
 
