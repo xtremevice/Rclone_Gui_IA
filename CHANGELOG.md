@@ -5,6 +5,42 @@ All notable changes to Rclone GUI will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2024-02-16
+
+### Added
+- **Bisync functionality**: Full bidirectional sync support
+  - Create and manage bisync operations between any two remotes
+  - Save and load bisync configurations
+  - Comprehensive sync options (resync, dry-run, conflict resolution, etc.)
+  - Real-time sync execution with progress feedback
+  - Command preview before execution
+- **Mac Silicon support**: Optimized command generation for Apple M1/M2/M3
+  - Automatic path detection for Homebrew installations
+  - Toggle for Mac Silicon specific commands
+- **Dynamic provider loading**: Providers are now loaded from `rclone config providers`
+  - Automatic discovery of all supported providers
+  - Fallback to hardcoded list if rclone unavailable
+  - Always up-to-date with latest rclone capabilities
+- **Remote path browsing**: Browse folders within remotes
+- **Custom arguments support**: Add custom rclone arguments to operations
+- **Bisync options**:
+  - Conflict resolution strategies (newer, older, larger, smaller, path1, path2)
+  - Compare methods (size, modtime, checksum)
+  - Max delete threshold protection
+  - Dry run mode for testing
+  - Force and resilient modes
+  - Filter support
+
+### Changed
+- Provider service now queries rclone dynamically instead of using hardcoded list
+- Updated navigation to include Bisync view
+- Enhanced UI with additional view for bisync management
+
+### Documentation
+- Added comprehensive BISYNC_GUIDE.md with examples and best practices
+- Updated README with bisync usage instructions
+- Added Mac Silicon specific documentation
+
 ## [1.0.0] - 2024-02-16
 
 ### Added

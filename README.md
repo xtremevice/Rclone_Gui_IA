@@ -1,6 +1,6 @@
 # Rclone GUI - Multi-Platform Cloud Storage Manager
 
-A cross-platform graphical user interface for managing Rclone cloud storage accounts and configurations.
+A cross-platform graphical user interface for managing Rclone cloud storage accounts, configurations, and bidirectional sync operations.
 
 ## Features
 
@@ -14,13 +14,22 @@ A cross-platform graphical user interface for managing Rclone cloud storage acco
   - Mega
   - pCloud
   - Box
-  - And many more...
+  - And many more (dynamically loaded from rclone)...
+
+- **Bidirectional Sync (Bisync)**: 
+  - Set up bidirectional sync between any two remotes
+  - Multiple sync operations with save/load functionality
+  - Conflict resolution strategies
+  - Dry run mode for testing
+  - Mac Silicon optimized command generation
+  - Custom arguments support
 
 - **User-Friendly Interface**: 
   - Easy-to-use GUI for adding cloud storage accounts
   - Visual management of configured remotes
   - Test and delete remotes with one click
   - Status notifications and real-time feedback
+  - Dynamic provider loading from rclone
 
 - **Multiple Authentication Methods**:
   - Username/Password authentication
@@ -30,7 +39,7 @@ A cross-platform graphical user interface for managing Rclone cloud storage acco
 
 - **Cross-Platform**: Built with Avalonia UI, runs on:
   - Windows
-  - macOS
+  - macOS (including Apple Silicon M1/M2/M3)
   - Linux
 
 ## Prerequisites
@@ -96,6 +105,22 @@ dotnet run --project src/RcloneGui/RcloneGui.csproj
 2. Select a remote from the list
 3. Click "Delete Selected"
 4. The remote will be removed from your rclone configuration
+
+### Setting Up Bisync
+
+1. Click on "Bisync" in the navigation menu
+2. Select source and destination remotes
+3. Optionally specify paths within remotes
+4. Configure bisync options:
+   - Enable "Resync" for first-time setup
+   - Set conflict resolution strategy
+   - Choose comparison method
+   - Configure other options as needed
+5. Click "Generate Command" to preview the command
+6. Click "Run Bisync Now" to execute the sync
+7. Optionally save the configuration for future use
+
+For detailed bisync documentation, see [BISYNC_GUIDE.md](BISYNC_GUIDE.md).
 
 ## Project Structure
 
