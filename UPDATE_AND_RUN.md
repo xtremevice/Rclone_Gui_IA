@@ -243,6 +243,43 @@ dotnet build RcloneGui.slnx --configuration Release
 
 This is normal in headless environments (servers). The application needs a desktop environment to run.
 
+### Error: MSB4068 in RcloneGui.slnx (macOS)
+
+If after updating you see this error:
+```
+RcloneGui.slnx(1,1): error MSB4068: The element
+```
+
+**Quick solution:**
+
+1. Verify you have the latest version with the fix:
+```bash
+git pull origin main
+```
+
+2. If the error persists, check the content of RcloneGui.slnx:
+```bash
+head -1 RcloneGui.slnx
+```
+
+Should show: `<?xml version="1.0" encoding="utf-8"?>`
+
+3. If it does NOT have the XML declaration, update manually:
+```bash
+# Download the corrected version
+curl -o RcloneGui.slnx https://raw.githubusercontent.com/xtremevice/Rclone_Gui_IA/main/RcloneGui.slnx
+
+# Or manually add the XML declaration
+sed -i '1s/^/<?xml version="1.0" encoding="utf-8"?>\n/' RcloneGui.slnx
+```
+
+4. Rebuild:
+```bash
+dotnet build RcloneGui.slnx --configuration Release
+```
+
+**Note**: This error occurs in old versions of the repository. The permanent solution is to ensure you have the latest version.
+
 ---
 
 ## 📚 Additional Documentation
