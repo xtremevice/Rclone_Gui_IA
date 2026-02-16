@@ -8,7 +8,7 @@ A cross-platform graphical user interface for managing Rclone cloud storage acco
 > - 🇬🇧 English: [HOW_TO_RUN.md](HOW_TO_RUN.md) - Complete execution guide for all platforms
 > - 📚 Wiki: [WIKI_COMO_EJECUTAR.md](WIKI_COMO_EJECUTAR.md) - Wiki-ready format
 > 
-> 🍎 **Mac Silicon Users**: See [MAC_SILICON_SETUP.md](MAC_SILICON_SETUP.md) for complete installation guide in Spanish
+> 🍎 **Mac Silicon Users** / **Usuarios de Mac Silicon**: See [MAC_SILICON_SETUP.md](MAC_SILICON_SETUP.md) for complete installation guide
 
 ## Features
 
