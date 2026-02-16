@@ -32,7 +32,7 @@ fi
 
 echo ""
 echo "Building application..."
-dotnet build --configuration Release
+dotnet build RcloneGui.slnx --configuration Release
 
 if [ $? -eq 0 ]; then
     echo ""

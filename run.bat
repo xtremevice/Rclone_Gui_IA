@@ -33,7 +33,7 @@ if %errorlevel% neq 0 (
 
 echo.
 echo Building application...
-dotnet build --configuration Release
+dotnet build RcloneGui.slnx --configuration Release
 
 if %errorlevel% equ 0 (
     echo.
