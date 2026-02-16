@@ -2,6 +2,10 @@
 
 A cross-platform graphical user interface for managing Rclone cloud storage accounts, configurations, and bidirectional sync operations.
 
+> 🍎 **Mac Silicon Users**: See [MAC_SILICON_SETUP.md](MAC_SILICON_SETUP.md) for complete installation guide in Spanish
+> 
+> 🍎 **Usuarios de Mac Silicon**: Ver [MAC_SILICON_SETUP.md](MAC_SILICON_SETUP.md) para guía completa de instalación
+
 ## Features
 
 - **Multi-Provider Support**: Configure accounts for various cloud storage providers including:
@@ -210,6 +214,12 @@ On Linux/macOS, you may need to make the rclone binary executable:
 ```bash
 chmod +x /path/to/rclone
 ```
+
+## Platform-Specific Guides
+
+- **Mac Silicon (M1/M2/M3)**: [MAC_SILICON_SETUP.md](MAC_SILICON_SETUP.md) - Complete setup guide in Spanish
+- **Quick Start**: [QUICKSTART.md](QUICKSTART.md) - General quick start guide
+- **Bisync Guide**: [BISYNC_GUIDE.md](BISYNC_GUIDE.md) - Bidirectional sync documentation
 
 ## Contributing
 
