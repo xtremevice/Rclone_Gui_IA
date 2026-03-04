@@ -81,7 +81,8 @@ public class RcloneService : IRcloneService
             foreach (var remoteName in remoteNames)
             {
                 var name = remoteName.TrimEnd(':');
-                var configOutput = await ExecuteRcloneCommandAsync($"config dump {name}");
+                // rclone config dump dumps the whole config file - not nust a single remote name
+                var configOutput = await ExecuteRcloneCommandAsync($"config dump");
                 
                 if (!string.IsNullOrWhiteSpace(configOutput))
                 {
